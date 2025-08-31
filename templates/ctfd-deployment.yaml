@@ -6,7 +6,7 @@ metadata:
     {{- include "ctfd.labels" . | nindent 4 }}
   annotations:
     checksum/ctfd-config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-    checksum/ctfd-secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+    checksum/ctfd-secret: {{ include (print $.Template.BasePath "/flask-secret.yaml") . | sha256sum }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
