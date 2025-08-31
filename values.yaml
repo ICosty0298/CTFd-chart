@@ -13,6 +13,25 @@ security:
     sameSite: "Lax"
   permanentSessionLifetime: 604800
 
+secrets:
+  vault:
+    ## @param secrets.vault.enabled Whether to enable HashiCorp Vault integration
+    ##
+    enabled: true
+    ## @param secrets.vault.address The path in Vault where CTFd's secrets are stored
+    ##
+    address: http://vault.vault.svc.cluster.local:8200
+    ## @param secrets.vault.skipTLSVerify Whether to skip TLS verification when communicating with Vault
+    ##
+    skipTLSVerify: true
+    ## @param secrets.vault.kubernetes.mount The Kubernetes auth mount path in Vault
+    ##
+    kubernetes:
+      mount: kubernetes
+      ## @param secrets.vault.kubernetes.secrets.mount The secrets mount path in Vault
+      secrets:
+        mount: kubernetes
+
 mail:
   ## @param mail.addressFrom A source address for sent emails
   ##

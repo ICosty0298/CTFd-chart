@@ -145,12 +145,12 @@ spec:
             - name: MAIL_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "ctfd.smtp.smtpSecretName" . }}
+                  name: {{ include "ctfd.fullname" . }}-smtp
                   key: smtpUsername
             - name: MAIL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "ctfd.smtp.smtpSecretName" . }}
+                  name: {{ include "ctfd.fullname" . }}-smtp
                   key: smtpPassword
             {{- end }}
             - name: MAIL_TLS
@@ -172,7 +172,7 @@ spec:
             - name: MAILGUN_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "ctfd.mailgun.mailgunSecretName" . }}
+                  name: {{ include "ctfd.fullname" . }}-mailgun
                   key: mailgunApiKey
             - name: MAILGUN_BASE_URL
               valueFrom:
@@ -241,12 +241,12 @@ spec:
             - name: OAUTH_CLIENT_ID
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "ctfd.oauth.oauthSecretName" . }}
+                  name: {{ include "ctfd.fullname" . }}-oauth
                   key: oauthClientId
             - name: OAUTH_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "ctfd.oauth.oauthSecretName" . }}
+                  name: {{ include "ctfd.fullname" . }}-oauth
                   key: oauthClientSecret
             {{- end }}
             {{- if .Values.minio.enabled }}
