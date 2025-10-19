@@ -39,11 +39,11 @@ dependencies:
   - condition: mariadb.enabled
     name: mariadb
     repository: https://charts.bitnami.com/bitnami
-    version: 22.x.x
+    version: 23.x.x
   - condition: redis.enabled
     name: redis
     repository: https://charts.bitnami.com/bitnami
-    version: 22.x.x
+    version: 23.x.x
   - condition: minio.enabled
     name: minio
     repository: https://charts.bitnami.com/bitnami
