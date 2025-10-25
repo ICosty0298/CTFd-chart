@@ -19,6 +19,21 @@ spec:
       {{- if .Values.podSecurityContext.enabled }}
       securityContext: {{- omit .Values.podSecurityContext "enabled" | toYaml | nindent 8 }}
       {{- end }}
+      {{- if .Values.plugins.enabled }}
+      initContainers:
+      - name: git-clone-plugins
+        image: alpine/git # A small image with git installed
+        args:
+        {{- range .Values.plugins.repositories }}
+          - clone
+          - --single-branch
+          - {{ .repoUrl}}
+          - /plugins/{{ .name }}
+        {{- end }}
+        volumeMounts:
+        - name: plugins
+          mountPath: /plugins
+      {{- end }}
       containers:
         - name: ctfd
           image: {{ .Values.image.image | quote }}

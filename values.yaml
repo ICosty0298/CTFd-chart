@@ -419,6 +419,11 @@ plugins:
   size: 5Gi
   ## @param persistence.annotations Optional annotations to add to the PVC metadata
   annotations: {}
+  ## @param plugins.repositories Additional git repositories to clone into the plugins folder
+  ##
+  repositories:
+  - repoNmae: ctfd-whale
+    repoUrl: https://github.com/CTFd/CTFd-Whale.git
 
 ## @section Redis cache parameters
 ##
