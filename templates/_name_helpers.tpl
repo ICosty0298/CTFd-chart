@@ -60,7 +60,7 @@
 */}}
 {{- define "ctfd.maridb.databaseSecretName" -}}
 {{- if .Values.mariadb.enabled }}
-  {{- printf "%s-mariadb" (include "common.names.fullname" .) -}}
+  {{- printf "%s" (include "common.names.fullname" .) -}}
 {{- else if .Values.externalDatabase.enabled -}}
   {{- if .Values.externalDatabase.existingSecret -}}
     {{- printf "%s" .Values.externalDatabase.existingSecret -}}
@@ -85,7 +85,7 @@
 */}}
 {{- define "ctfd.redis.redisSecretName" -}}
 {{- if .Values.redis.enabled -}}
-  {{- printf "%s-redis" (include "common.names.fullname" .) -}}
+  {{- printf "%s" (include "common.names.fullname" .) -}}
 {{- else if .Values.externalRedis.enabled -}}
   {{- if .Values.externalRedis.existingSecret -}}
     {{- printf "%s" .Values.externalRedis.existingSecret -}}
