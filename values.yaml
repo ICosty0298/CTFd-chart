@@ -400,6 +400,26 @@ externalDatabase:
   ##
   existingSecret: ""
 
+## @section CTFd persistence parameters
+## Configure persistence for the main CTFd application (uploads, logs, etc.)
+## Set `persistence.enabled` to true to create a PersistentVolumeClaim from this chart.
+## If `persistence.existingClaim` is set, the chart will use the existing PVC instead of creating one.
+##
+plugins:
+  ## @param persistence.enabled Enable creation of a PVC for CTFd
+  enabled: false
+  ## @param persistence.existingClaim Use an existing PVC by name (skips creating a new PVC)
+  existingClaim: ""
+  ## @param persistence.storageClass Optional storageClassName for the PVC. Leave empty to use default storage class
+  storageClass: ""
+  ## @param persistence.accessModes Access modes for the PVC
+  accessModes:
+    - ReadWriteOnce
+  ## @param persistence.size Requested storage size for the PVC
+  size: 5Gi
+  ## @param persistence.annotations Optional annotations to add to the PVC metadata
+  annotations: {}
+
 ## @section Redis cache parameters
 ##
 
