@@ -24,4 +24,5 @@ roleRef:
   name: system:auth-delegator
 subjects:
   - kind: ServiceAccount
+    namespace: {{ .Release.Namespace }}
     name: {{ include "ctfd.fullname" . }}
