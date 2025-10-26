@@ -1,5 +1,6 @@
 {{- if and .Values.plugins.enabled (not .Values.plugins.existingClaim) }}
 {{- range .Values.plugins.repositories }}
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

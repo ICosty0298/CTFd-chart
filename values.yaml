@@ -421,9 +421,11 @@ plugins:
   annotations: {}
   ## @param plugins.repositories Additional git repositories to clone into the plugins folder
   ##
-  repositories:
-  - repoName: "ctfd-whale"
-    repoUrl: "https://github.com/CTFd/CTFd-Whale.git"
+  ## They will be in a format like:
+  ## repositories:
+  ##  - repoName: "my-plugin"
+  ##    repoUrl: """
+  repositories: []
 
 ## @section Redis cache parameters
 ##
