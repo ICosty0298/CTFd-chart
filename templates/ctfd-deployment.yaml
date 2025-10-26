@@ -342,7 +342,7 @@ spec:
       {{- range .Values.plugins.repositories }}
         - name: plugin-{{ .repoName }}
           persistentVolumeClaim:
-            claimName: {{ include "ctfd.fullname" . }}-plugin-{{ .repoName }}
+            claimName: {{ include "ctfd.fullname" $ }}-plugin-{{ .repoName }}
       {{- end }}
       {{- end }}
       {{- if .Values.image.pullSecret }}
