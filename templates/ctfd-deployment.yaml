@@ -23,13 +23,12 @@ spec:
       initContainers:
       - name: git-clone-plugins
         image: alpine/git # A small image with git installed
+        command: ["/bin/sh", "-c"]
         args:
-        {{- range .Values.plugins.repositories }}
-          - clone
-          - --single-branch
-          - {{ .repoUrl}}
-          - /plugins/{{ .repoName }}
-        {{- end }}
+        - |
+          {{- range .Values.plugins.repositories }}
+          git clone --single-branch {{ .repoUrl }} /plugins/{{ .repoName }} || (cd /plugins/{{ .repoName }} && git pull)
+          {{- end }}
         volumeMounts:
         - name: plugins
           mountPath: /plugins
