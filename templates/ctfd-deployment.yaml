@@ -158,12 +158,12 @@ spec:
             - name: MAIL_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "ctfd.fullname" . }}-smtp
+                  name: {{ include "ctfd.fullname" . }}
                   key: smtpUsername
             - name: MAIL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "ctfd.fullname" . }}-smtp
+                  name: {{ include "ctfd.fullname" . }}
                   key: smtpPassword
             {{- end }}
             - name: MAIL_TLS
