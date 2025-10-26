@@ -28,7 +28,7 @@ spec:
           - clone
           - --single-branch
           - {{ .repoUrl}}
-          - /plugins/{{ .name }}
+          - /plugins/{{ .repoName }}
         {{- end }}
         volumeMounts:
         - name: plugins

@@ -422,8 +422,8 @@ plugins:
   ## @param plugins.repositories Additional git repositories to clone into the plugins folder
   ##
   repositories:
-  - repoNmae: ctfd-whale
-    repoUrl: https://github.com/CTFd/CTFd-Whale.git
+  - repoName: "ctfd-whale"
+    repoUrl: "https://github.com/CTFd/CTFd-Whale.git"
 
 ## @section Redis cache parameters
 ##
