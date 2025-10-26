@@ -3,23 +3,23 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "ctfd.fullname" . }}-plugin-{{ .repoName }}
+  name: {{ include "ctfd.fullname" $ }}-plugin-{{ .repoName }}
   labels:
-    {{- include "ctfd.labels" . | nindent 4 }}
-  {{- with .Values.plugins.annotations }}
+    {{- include "ctfd.labels" $ | nindent 4 }}
+  {{- with $.Values.plugins.annotations }}
   annotations:
 {{ toYaml . | indent 4 }}
   {{- end }}
 spec:
-  {{- if .Values.plugins.accessModes }}
+  {{- if $.Values.plugins.accessModes }}
   accessModes:
-{{ toYaml .Values.plugins.accessModes | trim | indent 4 }}
+{{ toYaml $.Values.plugins.accessModes | trim | indent 4 }}
   {{- end }}
   resources:
     requests:
-      storage: {{ .Values.plugins.size | quote }}
-  {{- if .Values.plugins.storageClass }}
-  storageClassName: {{ .Values.plugins.storageClass | quote }}
+      storage: {{ $.Values.plugins.size | quote }}
+  {{- if $.Values.plugins.storageClass }}
+  storageClassName: {{ $.Values.plugins.storageClass | quote }}
   {{- end }}
 {{- end }}
 {{- end }}
