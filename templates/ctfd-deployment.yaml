@@ -29,7 +29,7 @@ spec:
         - |
           git clone --single-branch {{ .repoUrl }} /{{ .repoName }} || (cd /{{ .repoName }} && git pull)
         volumeMounts:
-        - name: {{ .repoName }}
+        - name: plugin-{{ .repoName | lower | replace " " "-"}}
           mountPath: /{{ .repoName }}
         {{- end }}
       {{- end }}
@@ -320,7 +320,7 @@ spec:
           {{- if .Values.plugins.enabled }}
           volumeMounts:
           {{- range .Values.plugins.repositories }}
-            - name: plugin-{{ .repoName }}
+            - name: plugin-{{ .repoName | lower | replace " " "-"}}
               mountPath: /opt/CTFd/CTFd/plugins/{{ .repoName }}
           {{- end }}
           {{- end }}
@@ -340,9 +340,9 @@ spec:
       {{- if .Values.plugins.enabled }}
       volumes:
       {{- range .Values.plugins.repositories }}
-        - name: plugin-{{ .repoName }}
+        - name: plugin-{{ .repoName | lower | replace " " "-"}}
           persistentVolumeClaim:
-            claimName: {{ include "ctfd.fullname" $ }}-plugin-{{ .repoName }}
+            claimName: {{ include "ctfd.fullname" $ }}-plugin-{{ .repoName | lower | replace " " "-"}}
       {{- end }}
       {{- end }}
       {{- if .Values.image.pullSecret }}
