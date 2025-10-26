@@ -27,7 +27,7 @@ spec:
         command: ["/bin/sh", "-c"]
         args:
         - |
-          git clone --single-branch {{ .repoUrl }} /{{ .repoName }} || (cd /{{ .repoName }} && git pull)
+          git clone --single-branch {{ .repoUrl }} /{{ .repoName }} || (cd /{{ .repoName }} && git pull) && chown -R 1001:1001 /{{ .repoName }} && chmod -R 755 /{{ .repoName }}
         volumeMounts:
         - name: plugin-{{ .repoName | lower | replace " " "-"}}
           mountPath: /{{ .repoName }}
