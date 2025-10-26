@@ -22,7 +22,7 @@ spec:
       {{- if .Values.plugins.enabled }}
       initContainers:
       {{- range .Values.plugins.repositories }}
-      - name: git-clone-plugin-{{ .repoName }}
+      - name: git-clone-plugin-{{ .repoName | lower | replace " " "-"}}
         image: alpine/git # A small image with git installed
         command: ["/bin/sh", "-c"]
         args:
