@@ -21,17 +21,17 @@ spec:
       {{- end }}
       {{- if .Values.plugins.enabled }}
       initContainers:
-      - name: git-clone-plugins
+      {{- range .Values.plugins.repositories }}
+      - name: git-clone-plugin-{{ .repoName }}
         image: alpine/git # A small image with git installed
         command: ["/bin/sh", "-c"]
         args:
         - |
-          {{- range .Values.plugins.repositories }}
-          git clone --single-branch {{ .repoUrl }} /plugins/{{ .repoName }} || (cd /plugins/{{ .repoName }} && git pull)
-          {{- end }}
+          git clone --single-branch {{ .repoUrl }} /{{ .repoName }} || (cd /{{ .repoName }} && git pull)
         volumeMounts:
-        - name: plugins
-          mountPath: /plugins
+        - name: {{ .repoName }}
+          mountPath: /{{ .repoName }}
+        {{- end }}
       {{- end }}
       containers:
         - name: ctfd
@@ -319,8 +319,10 @@ spec:
               containerPort: {{ .Values.httpPort }}
           {{- if .Values.plugins.enabled }}
           volumeMounts:
-            - name: plugins
-              mountPath: /opt/CTFd/CTFd/plugins/extra_plugins
+          {{- range .Values.plugins.repositories }}
+            - name: plugin-{{ .repoName }}
+              mountPath: /opt/CTFd/CTFd/plugins/{{ .repoName }}
+          {{- end }}
           {{- end }}
           {{- if .Values.resources }}
           resources:
@@ -337,9 +339,11 @@ spec:
           {{- end }}
       {{- if .Values.plugins.enabled }}
       volumes:
-        - name: plugins
+      {{- range .Values.plugins.repositories }}
+        - name: plugin-{{ .repoName }}
           persistentVolumeClaim:
-            claimName: {{ include "ctfd.fullname" . }}-plugins
+            claimName: {{ include "ctfd.fullname" . }}-plugin-{{ .repoName }}
+      {{- end }}
       {{- end }}
       {{- if .Values.image.pullSecret }}
       imagePullSecrets:

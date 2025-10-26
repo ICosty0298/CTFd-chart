@@ -1,8 +1,9 @@
 {{- if and .Values.plugins.enabled (not .Values.plugins.existingClaim) }}
+{{- range .Values.plugins.repositories }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "ctfd.fullname" . }}-plugins
+  name: {{ include "ctfd.fullname" . }}-plugin-{{ .repoName }}
   labels:
     {{- include "ctfd.labels" . | nindent 4 }}
   {{- with .Values.plugins.annotations }}
@@ -20,4 +21,5 @@ spec:
   {{- if .Values.plugins.storageClass }}
   storageClassName: {{ .Values.plugins.storageClass | quote }}
   {{- end }}
+{{- end }}
 {{- end }}
