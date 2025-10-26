@@ -318,7 +318,7 @@ spec:
             - name: http
               protocol: TCP
               containerPort: {{ .Values.httpPort }}
-          {{ - if .Values.plugins.enabled }}
+          {{- if .Values.plugins.enabled }}
           volumeMounts:
             - name: plugins
               mountPath: /opt/CTFd/CTFd/plugins
