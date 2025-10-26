@@ -320,7 +320,7 @@ spec:
           {{- if .Values.plugins.enabled }}
           volumeMounts:
             - name: plugins
-              mountPath: /opt/CTFd/CTFd/plugins
+              mountPath: /opt/CTFd/CTFd/plugins/extra_plugins
           {{- end }}
           {{- if .Values.resources }}
           resources:
