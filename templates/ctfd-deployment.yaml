@@ -37,10 +37,13 @@ spec:
           git config --global --add safe.directory "$REPO_DIR" || true
 
           # If not a git clone yet, clone. Otherwise, pull latest changes.
+
           if [ ! -d "$REPO_DIR/.git" ]; then
             git clone --single-branch {{ .repoUrl }} "$REPO_DIR" || true
           else
-            cd "$REPO_DIR" && git pull || true
+            cd "$REPO_DIR"
+            git fetch --all || true
+            git reset --hard origin/$(git rev-parse --abbrev-ref HEAD) || true
           fi
 
           # Ensure correct ownership and permissions for the mounted volume
