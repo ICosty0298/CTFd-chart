@@ -27,7 +27,25 @@ spec:
         command: ["/bin/sh", "-c"]
         args:
         - |
-          git config --global --add safe.directory /{{ .repoName }} || git clone --single-branch {{ .repoUrl }} /{{ .repoName }} || (cd /{{ .repoName }} && git pull) && chown -R 1001:1001 /{{ .repoName }} && chmod -R 755 /{{ .repoName }}
+          # Multi-step clone/pull + permissions script for plugin {{ .repoName }}
+          REPO_DIR="/{{ .repoName }}"
+
+          # Ensure directory exists (mount will be present)
+          mkdir -p "$REPO_DIR"
+
+          # Add safe.directory so git won't fail when running as different uid
+          git config --global --add safe.directory "$REPO_DIR" || true
+
+          # If not a git clone yet, clone. Otherwise, pull latest changes.
+          if [ ! -d "$REPO_DIR/.git" ]; then
+            git clone --single-branch {{ .repoUrl }} "$REPO_DIR" || true
+          else
+            cd "$REPO_DIR" && git pull || true
+          fi
+
+          # Ensure correct ownership and permissions for the mounted volume
+          chown -R 1001:1001 "$REPO_DIR" || true
+          chmod -R 755 "$REPO_DIR" || true
         volumeMounts:
         - name: plugin-{{ .repoName | lower | replace " " "-"}}
           mountPath: /{{ .repoName }}
