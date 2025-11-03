@@ -22,7 +22,7 @@ spec:
       {{- if .Values.plugins.enabled }}
       initContainers:
       {{- range .Values.plugins.repositories }}
-      - name: git-clone-plugin-{{ .repoName | lower | replace " " "-"}}
+      - name: git-clone-plugin-{{ .repoName | lower | replace " " "-" | replace "_" "-" }}
         image: alpine/git # A small image with git installed
         command: ["/bin/sh", "-c"]
         args:
@@ -50,7 +50,7 @@ spec:
           chown -R 1001:1001 "$REPO_DIR" || true
           chmod -R 755 "$REPO_DIR" || true
         volumeMounts:
-        - name: plugin-{{ .repoName | lower | replace " " "-"}}
+        - name: plugin-{{ .repoName | lower | replace " " "-" | replace "_" "-" }}
           mountPath: /{{ .repoName }}
         {{- end }}
       {{- end }}
@@ -341,7 +341,7 @@ spec:
           {{- if .Values.plugins.enabled }}
           volumeMounts:
           {{- range .Values.plugins.repositories }}
-            - name: plugin-{{ .repoName | lower | replace " " "-"}}
+            - name: plugin-{{ .repoName | lower | replace " " "-" | replace "_" "-"}}
               mountPath: /opt/CTFd/CTFd/plugins/{{ .repoName }}
           {{- end }}
           {{- end }}
@@ -361,9 +361,9 @@ spec:
       {{- if .Values.plugins.enabled }}
       volumes:
       {{- range .Values.plugins.repositories }}
-        - name: plugin-{{ .repoName | lower | replace " " "-"}}
+        - name: plugin-{{ .repoName | lower | replace " " "-" | replace "_" "-"}}
           persistentVolumeClaim:
-            claimName: {{ include "ctfd.fullname" $ }}-plugin-{{ .repoName | lower | replace " " "-"}}
+            claimName: {{ include "ctfd.fullname" $ }}-plugin-{{ .repoName | lower | replace " " "-" | replace "_" "-"}}
       {{- end }}
       {{- end }}
       {{- if .Values.image.pullSecret }}

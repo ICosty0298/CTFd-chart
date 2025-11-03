@@ -4,7 +4,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "ctfd.fullname" $ }}-plugin-{{ .repoName | lower | replace " " "-" }}
+  name: {{ include "ctfd.fullname" $ }}-plugin-{{ .repoName | lower | replace " " "-" | replace "_" "-" }}
   labels:
     {{- include "ctfd.labels" $ | nindent 4 }}
   {{- with $.Values.plugins.annotations }}
