@@ -340,6 +340,10 @@ spec:
               containerPort: {{ .Values.httpPort }}
           {{- if .Values.plugins.enabled }}
           volumeMounts:
+          {{- if .Values.ssh.enabled }}
+            - name: ssh-keys
+              mountPath: /root/.ssh
+          {{- end }}
           {{- range .Values.plugins.repositories }}
             - name: plugin-{{ .repoName | lower | replace " " "-" | replace "_" "-"}}
               mountPath: /opt/CTFd/CTFd/plugins/{{ .repoName }}
@@ -360,6 +364,14 @@ spec:
           {{- end }}
       {{- if .Values.plugins.enabled }}
       volumes:
+      {{- if .Values.ssh.enabled }}
+        - name: ssh-keys
+          secret:
+            secretName: {{ .Values.ssh.secretName | quote }}
+            items:
+              - key: id_ed25519
+              - key: known_hosts
+      {{- end }}
       {{- range .Values.plugins.repositories }}
         - name: plugin-{{ .repoName | lower | replace " " "-" | replace "_" "-"}}
           persistentVolumeClaim:

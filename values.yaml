@@ -442,6 +442,14 @@ redis:
   ##
   architecture: standalone
 
+ssh:
+  ## @param ssh.enabled Whether to enable SSH keys injection for plugin repositories
+  ##
+  enabled: false
+  ## @param ssh.secretName Name of the secret containing the SSH keys
+  ##
+  secretName: ""
+
 externalRedis:
   ## @param externalRedis.enabled Whether to use an external redis instance
   ##
