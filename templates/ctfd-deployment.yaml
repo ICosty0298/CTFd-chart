@@ -370,7 +370,9 @@ spec:
             secretName: {{ .Values.ssh.secretName | quote }}
             items:
               - key: id_ed25519
+                path: id_ed25519
               - key: known_hosts
+                path: known_hosts
       {{- end }}
       {{- range .Values.plugins.repositories }}
         - name: plugin-{{ .repoName | lower | replace " " "-" | replace "_" "-"}}
