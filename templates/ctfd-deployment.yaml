@@ -342,7 +342,7 @@ spec:
           volumeMounts:
           {{- if .Values.ssh.enabled }}
             - name: ssh-keys
-              mountPath: /root/.ssh
+              mountPath: /home/ctfd/.ssh
           {{- end }}
           {{- range .Values.plugins.repositories }}
             - name: plugin-{{ .repoName | lower | replace " " "-" | replace "_" "-"}}
