@@ -442,6 +442,7 @@ redis:
   ##
   architecture: standalone
 
+## @section SSH parameters
 ssh:
   ## @param ssh.enabled Whether to enable SSH keys injection for plugin repositories
   ##
@@ -449,6 +450,21 @@ ssh:
   ## @param ssh.secretName Name of the secret containing the SSH keys
   ##
   secretName: ""
+
+uploadsPersistence:
+  ## @param uploadsPersistence.enabled Enable creation of a PVC for CTFd uploads
+  enabled: false
+  ## @param uploadsPersistence.claimName Name of the PVC to create for uploads persistence
+  claimName: ctfd-uploads-pvc
+  ## @param uploadsPersistence.storageClass Optional storageClassName for the PVC. Leave empty to use default storage class
+  storageClass: ""
+  ## @param uploadsPersistence.accessModes Access modes for the PVC
+  accessModes:
+    - ReadWriteOnce
+  ## @param uploadsPersistence.size Requested storage size for the PVC
+  size: 20Gi
+  ## @param uploadsPersistence.annotations Optional annotations to add to the PVC metadata
+  annotations: {}
 
 externalRedis:
   ## @param externalRedis.enabled Whether to use an external redis instance

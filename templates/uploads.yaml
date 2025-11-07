@@ -1,0 +1,24 @@
+{{- if .Values.uploadsPersistence.enabled }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.uploadsPersistence.claimName }}
+  labels:
+    {{- include "ctfd.labels" . | nindent 4 }}
+  {{- with .Values.uploadsPersistence.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+  {{- end }}
+spec:
+  {{- if .Values.uploadsPersistence.accessModes }}
+  accessModes:
+{{ toYaml .Values.uploadsPersistence.accessModes | trim | indent 4 }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.uploadsPersistence.size | quote }}
+  {{- if .Values.uploadsPersistence.storageClass }}
+  storageClassName: {{ .Values.uploadsPersistence.storageClass | quote }}
+  {{- end }}
+{{- end }}

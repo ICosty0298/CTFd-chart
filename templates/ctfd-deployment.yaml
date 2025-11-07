@@ -340,6 +340,10 @@ spec:
               containerPort: {{ .Values.httpPort }}
           {{- if .Values.plugins.enabled }}
           volumeMounts:
+          {{- if .Values.uploadsPersistence.enabled }}
+            - name: uploads
+              mountPath: /opt/CTFd/CTFd/uploads
+          {{- end }}
           {{- if .Values.ssh.enabled }}
             - name: ssh-keys
               mountPath: /home/ctfd/.ssh
@@ -364,6 +368,11 @@ spec:
           {{- end }}
       {{- if .Values.plugins.enabled }}
       volumes:
+      {{- if .Values.uploadsPersistence.enabled }}
+        - name: uploads
+          persistentVolumeClaim:
+            claimName: {{ uploadsPersistence.claimName | quote }}
+      {{- end }}
       {{- if .Values.ssh.enabled }}
         - name: ssh-keys
           secret:
