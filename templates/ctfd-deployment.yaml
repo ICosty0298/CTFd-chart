@@ -371,7 +371,7 @@ spec:
       {{- if .Values.uploadsPersistence.enabled }}
         - name: uploads
           persistentVolumeClaim:
-            claimName: {{ uploadsPersistence.claimName | quote }}
+            claimName: {{ .Values.uploadsPersistence.claimName | quote }}
       {{- end }}
       {{- if .Values.ssh.enabled }}
         - name: ssh-keys
