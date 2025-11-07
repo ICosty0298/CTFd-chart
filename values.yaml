@@ -462,7 +462,7 @@ uploadsPersistence:
   accessModes:
     - ReadWriteOnce
   ## @param uploadsPersistence.size Requested storage size for the PVC
-  size: 20Gi
+  size: 5Gi
   ## @param uploadsPersistence.annotations Optional annotations to add to the PVC metadata
   annotations: {}
 
